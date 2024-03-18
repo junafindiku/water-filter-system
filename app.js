@@ -13,8 +13,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, '')));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
@@ -30,6 +30,7 @@ app.use(passport.session());
 mongoose.connect("mongodb://localhost:27017/waterfilterDB");
 
 const userSchema = new mongoose.Schema({
+    fullName: String,
     email: String,
     password: String,
     googleId: String,
@@ -47,16 +48,19 @@ passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
-    });
+passport.deserializeUser(async function(id, done) {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err, null);
+    }
 });
 
 passport.use(new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/google/NOTDECIDED", //where they will be redirected
+        callbackURL: "http://localhost:3000/auth/google/index", //where they will be redirected
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -67,10 +71,68 @@ passport.use(new GoogleStrategy({
     }
 ));
 
+app.get("/auth/google", passport.authenticate("google", {
+    scope: ["profile"]
+}));
 
-app.get('/', (req, res) => {
+app.get("/auth/google/index",
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    function (req, res) {
+        res.redirect("/index");
+    });
+
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.get('/index', (req, res) => {
     res.render('index');
 });
+
+
+app.post("/signup", function (req, res) {
+
+    const newUser = new User({
+        username: req.body.username,
+        fullname: req.body.fullname,
+        role: 'Customer'
+    })
+
+    User.register(newUser, req.body.password, function (err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect("signup");
+        }
+        else {
+            passport.authenticate("local")(req, res, function () {
+                res.redirect("index");
+            });
+        }
+    });
+});
+
+app.post("/login", function (req, res) {
+
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    req.login(user, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            passport.authenticate("local")(req, res, function () {
+                res.redirect("index");
+            });
+        }
+    });
+});
+
 // Starts the server
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
