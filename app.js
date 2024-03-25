@@ -30,7 +30,7 @@ app.use(passport.session());
 mongoose.connect("mongodb://localhost:27017/waterfilterDB");
 
 const userSchema = new mongoose.Schema({
-    fullName: String,
+    fullname: String,
     email: String,
     password: String,
     googleId: String,
@@ -93,6 +93,12 @@ app.get('/index', (req, res) => {
     res.render('index');
 });
 
+app.get('/admin', (req, res) => {
+    if (req.isAuthenticated() && req.user.role === 'Admin') {
+       return res.render('admin');
+    }
+    return res.redirect('/login');
+});
 
 app.post("/signup", function (req, res) {
 
@@ -126,10 +132,44 @@ app.post("/login", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            passport.authenticate("local")(req, res, function () {
-                res.redirect("index");
+            passport.authenticate("local")(req, res, async function () {
+                try {
+                    const loggedInUser = await User.findById(req.user._id);
+                    const loggedInUserRole = loggedInUser.role;
+                    const roleRedirectMap = {
+                        'Admin': 'admin',
+                        'Phone Agent': 'phoneAgent'
+                        // Add more roles
+                    };
+                    const redirectPath = roleRedirectMap[loggedInUserRole];
+                    if (redirectPath) {
+                        res.redirect(redirectPath);
+                    } else {
+                        res.redirect("index");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    res.redirect("login");
+                }
+
             });
         }
+    });
+});
+
+app.post("/admin", function (req, res) {
+
+    const newUser = new User({
+        username: req.body.username,
+        fullname: req.body.fullname,
+        role: req.body.role
+    });
+
+    User.register(newUser, req.body.password, function (err, user) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect("admin");
     });
 });
 
