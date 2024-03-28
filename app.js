@@ -28,8 +28,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/waterfilterDB");
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new Schema({
     fullname: String,
     email: String,
     password: String,
@@ -37,10 +38,96 @@ const userSchema = new mongoose.Schema({
     role: String
 });
 
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
+const ClientSchema = new Schema({
+    name: String,
+    address: String,
+    comments: String,
+    isBuyer: Boolean
+});
 
-const User = new mongoose.model("User", userSchema);
+const CallOutcomeSchema = new Schema({
+    outcomeType: {
+        type: String,
+        enum: ['No answer', 'Another outcome', 'Excessive argument', 'Successful call'],
+        required: true
+    },
+    scheduledDate: Date,
+    meetingScheduled: {
+        type: Boolean,
+        default: false
+    },
+    meetingAgent: {
+        type: Schema.Types.ObjectId,
+        ref: 'SalesAgent'
+    }
+});
+
+const MeetingSchema = new Schema({
+    client: ClientSchema,
+    referenceInfo: String,
+    availability: {
+        type: Schema.Types.ObjectId,
+        ref: 'SalesAgentAvailability'
+    },
+    timeSlot: Date
+});
+
+const PhoneCallSchema = new Schema({
+    phoneNumber: {
+        type: String,
+        required: true
+    },
+    callHistory: [{
+        timestamp: {
+            type: Date,
+            default: Date.now
+        },
+        outcome: CallOutcomeSchema
+    }],
+    reservedForToday: {
+        type: Boolean,
+        default: false
+    }
+});
+
+const SalesAgentAvailabilitySchema = new Schema({
+    agent: {
+        type: Schema.Types.ObjectId,
+        ref: 'SalesAgent'
+    },
+    timeSlots: [Date]
+});
+
+const SalesAgentSchema = new Schema({
+    name: String,
+    schedule: [{
+        date: Date,
+        appointments: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Meeting'
+        }]
+    }],
+    latestReferences: [ClientSchema],
+    redList: [ClientSchema],
+    phoneCalls: [PhoneCallSchema]
+});
+
+UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(findOrCreate);
+ClientSchema.plugin(findOrCreate);
+CallOutcomeSchema.plugin(findOrCreate);
+MeetingSchema.plugin(findOrCreate);
+PhoneCallSchema.plugin(findOrCreate);
+SalesAgentAvailabilitySchema.plugin(findOrCreate);
+SalesAgentSchema.plugin(findOrCreate);
+
+const User = new mongoose.model("User", UserSchema);
+const Client = new mongoose.model('Client', ClientSchema);
+const CallOutcome = new mongoose.model('CallOutcome', CallOutcomeSchema);
+const Meeting = new mongoose.model('Meeting', MeetingSchema);
+const PhoneCall = new mongoose.model('PhoneCall', PhoneCallSchema);
+const SalesAgentAvailability = new mongoose.model('SalesAgentAvailability', SalesAgentAvailabilitySchema);
+const SalesAgent = new mongoose.model('SalesAgent', SalesAgentSchema);
 
 passport.use(User.createStrategy());
 
@@ -100,6 +187,41 @@ app.get('/admin', (req, res) => {
     return res.redirect('/login');
 });
 
+const authenticatePhoneAgent = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.role === 'Phone Agent') {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+};
+
+// Apply the middleware to routes specific to phone agents
+app.get('/phone-agent', authenticatePhoneAgent, (req, res) => {
+    res.render('phone-agent');
+});
+
+app.get('/phone-agent/sales-agent-schedule', authenticatePhoneAgent, async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const oneWeekFromNow = new Date(currentDate);
+        oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
+        const allAgents = await SalesAgent.find({}, '_id');
+
+        const agentAvailabilities = await Promise.all(allAgents.map(async (agent) => {
+            const availability = await SalesAgentAvailability.findOne({
+                agent: agent._id,
+                'timeSlots': { $gte: currentDate, $lte: oneWeekFromNow }
+            });
+            return { agent, availability };
+        }));
+        console.log(agentAvailabilities);
+        res.render('phone-agent/sales-agent-schedule', {agentSchedule: agentAvailabilities });
+    } catch (error) {
+        console.error('Error searching for sales agents availability:', error);
+        res.status(500).json({ success: false, message: 'Failed to search for sales agents availability' });
+    }
+});
+
 app.post("/signup", function (req, res) {
 
     const newUser = new User({
@@ -138,7 +260,7 @@ app.post("/login", function (req, res) {
                     const loggedInUserRole = loggedInUser.role;
                     const roleRedirectMap = {
                         'Admin': 'admin',
-                        'Phone Agent': 'phoneAgent'
+                        'Phone Agent': 'phone-agent'
                         // Add more roles
                     };
                     const redirectPath = roleRedirectMap[loggedInUserRole];
@@ -172,6 +294,10 @@ app.post("/admin", function (req, res) {
         res.redirect("admin");
     });
 });
+
+// app.post("/phone-agent", function (req, res) {
+//
+// });
 
 // Starts the server
 app.listen(3000, () => {

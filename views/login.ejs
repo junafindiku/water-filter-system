@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
-    <link rel="stylesheet" href="../public/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/login.css" type="text/css">
     <script>
         function validateInput() {
             var userInput = document.getElementById("userInput").value;
@@ -11,6 +12,7 @@
 
             // Check if the input matches the email regex or phone number regex
             if (emailRegex.test(userInput) || phoneRegex.test(userInput)) {
+                alert("Input is valid!");
             } else {
                 alert("Please enter a valid email address or phone number.");
             }
@@ -29,33 +31,27 @@
     </script>
 </head>
 <body>
-<p id="letters" >Log in</p>
-<p class="background"></p>
-<div class="frame1"></div>
-<form action="/login" method="post" onsubmit="return validateInput();" class="rectangle">
+
+<img src="../public/css/firstphoto.png" class="body--icon"/>
+
+<form action="/login" method="post" onsubmit="return validateInput();" class="body--form">
+    <p class="body--login">Log in</p>
     <p>
         <label for="userInput"></label>
-        <input type="text" id="userInput" name="username" placeholder="Phone number or email" required >
+        <input type="text" class="field" name="username" placeholder="Phone number or email" required >
     </p>
     <p>
         <label for=""></label>
-        <input type="password" id="show" name="password" required placeholder="Password"> <br>
+        <input type="password" class="field" name="password" required placeholder="Password"> <br>
         <input type="checkbox" name="" onclick="myfunction()"id="">
         <label for="">Show Password</label>
     </p>
-    <p style="padding-bottom: 50px; padding-top: 20px;">
-        <input type="submit" id="button" value="Log in">
-        <br>
-        <a href="/auth/google" role="button">
-            Sign In with Google
-        </a>
+    <p>
+        <input class="body--button" type="submit" id="button" value="Log in">
     </p>
     <p
-            id=button">Forgotten your log in details?<a href="exercises.html" target="_blank">Get help with signing in.</a>
+            class="body--ending ">Forgotten your log in details?<a href="exercises.html" target="_blank"> Get help with signing in.</a>
     </p>
-    <p style="text-align: left; margin-left: -340px; margin-top: -120px; z-index: 6; color: white;">Don't have an account?</p>
-    <a href="signup.ejs" style="text-align: left; margin-left: -340px; margin-top: -120px;z-index: 6;color: white;"> Sign up</a>
 </form>
-<div class="frame2"></div>
 </body>
 </html>
