@@ -1,15 +1,27 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 const findOrCreate = require("mongoose-findorcreate");
+const Role = require("./Role");
 
-const UserSchema = new mongoose.Schema({
-	fullname: String,
-	email: String,
+const User = new mongoose.Schema({
+	name: String,
+	username: String,
 	password: String,
-	role: String
+	address: String,
+	profession: String,
+	comments: String,
+	qualified: Boolean, //qualify references based on financial capabilities
+	referral: String, //name of person who referred
+	contacted: Boolean,
+	roleId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Role'
+	}
 });
 
-UserSchema.plugin(passportLocalMongoose);
-UserSchema.plugin(findOrCreate);
+User.plugin(passportLocalMongoose);
+User.plugin(findOrCreate);
 
-module.exports = mongoose.model('User', UserSchema);
+
+module.exports = mongoose.model('User', User);
+

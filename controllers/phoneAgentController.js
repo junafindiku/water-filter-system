@@ -2,7 +2,7 @@ exports.phoneAgentDashboard = (req, res) => {
 	if (req.isAuthenticated() && req.user.role === 'Phone Agent') {
 		res.render('phone-agent');
 	} else {
-		res.redirect('/login');
+		res.redirect('/');
 	}
 };
 
