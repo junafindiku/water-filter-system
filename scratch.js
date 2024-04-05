@@ -1,4 +1,3 @@
-
 objects = {
 	user: {
 		id: Number,

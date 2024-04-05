@@ -48,12 +48,6 @@ exports.login = (req, res) => {
 		}
 
 	});
-
-	//if (req.isAuthenticated()) {
-	//	return res.render('index');
-	//} else {
-		
-	//}
 }
 
 exports.logout = (req, res) => {
