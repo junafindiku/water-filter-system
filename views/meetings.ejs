@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetings</title>
+    <link rel="stylesheet" href="../public/css/meetings.css" type="text/css">
+    <script>
+        function toggleRadio(radio) {
+            // Uncheck all other radio buttons in the same group
+            var radios = document.getElementsByName(radio.name);
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i] !== radio) {
+                    radios[i].checked = false;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<nav>
+    <img src="lostlogo.png"/>
+    <section>
+        <span>Home</span>
+        <span style="text-decoration: underline solid black 2px;color:#000;">Meetings</span>
+    </section>
+    <div>
+        <p className="span--text">Sales agent</p>
+    </div>
+</nav>
+<div style="padding: 5px 30px 5px 30px;display: flex; flex-direction: column;">
+    <div style="font-family: Lexend;display: flex; flex-direction: column;">
+        <h1 style="font-size: 22px; font-weight: 300; line-height: 40px; text-align: left; color: #000000; margin-bottom: 4px">Activity</h1>
+        <p style="font-size: 18px; font-weight: 400; line-height: 25px; text-align: left; color: #011C47; margin-bottom: 10px; margin-top:3px">Log Meetings</p>
+    </div>
+</div>
+<div  style="padding: 5px 50px 10px 50px;gap:180px; display: flex; flex-direction: row; align-items: center;
+border-radius: 30px;background-color: #F0F3F6;box-shadow: 10px 10px 10px 0px #FFFFFF40 inset;font-family: Lexend;
+font-size: 20px; font-weight: 300;line-height: 25px;">
+    <span>Date & Time / Address</span>
+    <span>Meet type</span>
+    <span>Outcome</span>
+    <span>Cancellation</span>
+</div>
+<form action="/sales-agent/meeting/add" method="post" id="myForm" onsubmit="toggleRadio()">
+    <table id="myTable">
+        <tr>
+            <td>
+                <input type="date" required placeholder="Date & Time" id="datetime" style="font-family: Lexend;font-size: 15px; font-weight: 400; line-height: 25px;">
+            </td>
+            <td>
+                <input type="radio" name="meetingType" onchange="toggleRadio(this)" required>Instant
+            </td>
+            <td>
+                <input type="radio" name="successful" onchange="toggleRadio(this)" required>Successful
+            </td>
+            <td>
+                <input type="radio" name="canceledBy" onchange="toggleRadio(this)" required>Cancelled by seller
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" required placeholder="Address" style="text-align: center" id="address">
+            </td>
+            <td>
+                <input type="radio" name="meetingType" onchange="toggleRadio(this)" required>Scheduled
+            </td>
+            <td>
+                <input type="radio" name="successful" onchange="toggleRadio(this)" required>Unsuccessful
+            </td>
+            <td>
+                <input type="radio" name="canceledBy" onchange="toggleRadio(this)" required>Cancelled by cost.
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <input type="text" placeholder="Other" style="text-align: center">
+            </td>
+        </tr>
+    </table>
+    <div style="display: flex; padding: 30px 70px 30px 70px ; gap:700px">
+        <form id="referenceForm" style="justify-content: flex-start;">
+            <button type="submit" style="display: none;">Submit</button>
+            <button type="submit" class="AddReferenceButton" class="mybutton" style="border-radius: 15px">
+                <span style="font-family: Lexend; font-size: 17px; font-weight: 400; line-height: 21px; text-align: center;color: #6B6B6B;">⊕ New meeting</span>
+            </button>
+        </form>
+        <section style="justify-content: flex-end; border-radius: 15px; height: 38px; display: flex; align-items: center;width:165px" class="mybutton">
+            <a href="references.html" class="AddReferenceButton" style="font-family: Lexend; font-size: 17px; font-weight: 300; line-height: 25px; color: #6B6B6B; text-decoration: none; padding: 10px 20px; border-radius: 15px; transition: background-color 0.3s;">
+                ➩ Add references
+            </a>
+        </section>
+
+    </div>
+</form>
+</body>
+</html>

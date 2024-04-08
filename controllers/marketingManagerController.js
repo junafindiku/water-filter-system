@@ -2,7 +2,6 @@ const CallHistoryEntry = require('../models/CallHistoryEntry');
 const AgentMeeting = require('../models/AgentMeeting');
 const User = require('../models/User');
 const {roleIdByTitle} = require('../middlewares/roleIdByTitle');
-const CallHistoryEntry = require('../models/CallHistoryEntry');
 
 exports.allocateCalls = async (req, res) => {
     try {

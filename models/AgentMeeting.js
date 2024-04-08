@@ -8,12 +8,9 @@ const AgentMeetingSchema = new mongoose.Schema({
 	},
 	meetingType: {
 		type: String,
-		enum: ['In person', 'Phone']
+		enum: ['Instant', 'Scheduled']
 	},
-	agentScheduleSlotId: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'AgentScheduleSlot'
-	},
+	datetime: Date,
 	successful: Boolean,
 	canceled: Boolean,
 	canceledBy: {

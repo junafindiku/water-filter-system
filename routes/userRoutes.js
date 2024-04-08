@@ -16,29 +16,29 @@ router.get('/admin', makeSureIs('admin'), adm.adminDashboard);
 router.post('/admin/user/add', makeSureIs('admin'), adm.createUser);
 
 //marketing manager routes
-router.post('/manager/calls/add', marketingManagerController.allocateCalls);
-router.post('/manager/adjust-schedule/:agentId', marketingManagerController.adjustSalesAgentSchedule);
-router.get('/manager/view-schedules/', marketingManagerController.viewSalesAgentSchedules);
-router.get('/manager/view-sales-agent-statistics/', marketingManagerController.viewSalesAgentStatistics);
-router.get('/manager/view-phone-agent-statistics/', marketingManagerController.viewPhoneAgentStatistics);
+router.post('/manager/calls/add', makeSureIs('manager'), marketingManagerController.allocateCalls);
+router.post('/manager/adjust-schedule/:agentId', makeSureIs('manager'), marketingManagerController.adjustSalesAgentSchedule);
+router.get('/manager/view-schedules/', makeSureIs('manager'), marketingManagerController.viewSalesAgentSchedules);
+router.get('/manager/view-sales-agent-statistics/', makeSureIs('manager'), marketingManagerController.viewSalesAgentStatistics);
+router.get('/manager/view-phone-agent-statistics/', makeSureIs('manager'), marketingManagerController.viewPhoneAgentStatistics);
 
 
 //sales agent routes
-router.post('/salesagent/setup-work-schedule', salesAgentController.setupSchedule);
-router.get('/salesagent/view-scheduled-meetings', salesAgentController.viewScheduledMeetings);
+router.post('/sales-agent/setup-schedule', makeSureIs('sales agent'), salesAgentController.setupSchedule);
+router.get('/sales-agent/view-scheduled-meetings', makeSureIs('sales agent'), salesAgentController.viewScheduledMeetings);
+router.get('/sales-agent', makeSureIs('sales agent'), salesAgentController.salesAgentDashboard);
+router.post('/sales-agent/meeting/add', makeSureIs('sales agent'), salesAgentController.setupInstantMeeting);
+router.post('/sales-agent/log-meeting-outcome', makeSureIs('sales agent'), salesAgentController.logMeetingOutcome);
+router.post('/sales-agent/add-reference', makeSureIs('sales agent'), salesAgentController.addReference);
 
 //phone agent routes
-router.get('/phoneagent', phoneAgentController.phoneAgentDashboard);
-router.get('/phoneagent/sales-agent-schedule', phoneAgentController.getSalesAgentSchedule);
+router.get('/phone-agent', makeSureIs('phone agent'), phoneAgentController.phoneAgentDashboard);
+router.get('/phone-agent/sales-agent-schedule', makeSureIs('phone agent'), phoneAgentController.getSalesAgentSchedule);
 
 // GET/POST/DELETE /admin/user
 
 // /admin/user/add
 // /admin/user/delete
 // /admin/user/edit
-
-// /api/add POST object=user/schedule/role
-// /api/delete
-// /api/edit
 
 module.exports = router;

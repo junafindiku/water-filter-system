@@ -1,0 +1,71 @@
+body {
+    background: #C1D9FC;
+    padding: 20px 35px 20px 35px;
+}
+
+nav {
+    height: 40px;
+    display: flex;
+    gap: 430px;
+    background: linear-gradient(90.32deg, rgba(240, 243, 246, 0.7) 99.73%, rgba(240, 243, 246, 0.322) 19.03%);
+    padding: 10px 10px 10px 10px;
+    font-family: Lexend;
+}
+
+section {
+    display: flex;
+    justify-items: center;
+    gap: 40px;
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #6B6B6B;
+}
+
+table {
+    width: 1195px;
+    margin-top: 4px;
+    font-family: Lexend;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+    background: #F0F3F6B2;
+    border-radius: 15px;
+    padding: 5px 5px 5px 5px;
+    border-spacing: 12px;
+    margin-bottom: 5px;
+}
+
+td {
+    height: 20px;
+    width: 25px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    text-align: center;
+    padding: 10px; /* Add padding to create space between table data */
+    font-size: 15px; /* Adjust font size for table data */
+}
+
+/* Hide borders for input elements within table cells */
+td input {
+    border: none;
+    outline: none; /* Optional: Remove outline when input is focused */
+}
+
+.mybutton {
+    width: 150px;
+    height: 35px;
+    background-color: #F0F3F6;
+    text-align: center;
+}
+
+.AddReferenceButton:hover {
+    background: #DCE1E6; /* Change background color on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
+
+
+

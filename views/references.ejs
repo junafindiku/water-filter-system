@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>References</title>
+    <link rel="stylesheet" href="../public/css/references.css" type="text/css">
+    <script>
+        function validateInput() {
+            var userInput = document.getElementById("userInput").value;
+            var phoneRegex = /^\+355\d{8}$/; // Phone number starts with +355 and has 8 digits after that
+
+            if (phoneRegex.test(userInput)) {
+                alert("Input is valid!");
+                return true; // Allow form submission if input is valid
+            } else {
+                alert("Please enter a valid phone number.");
+                return false; // Prevent form submission if input is invalid
+            }
+        }
+    </script>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function() {
+            // Get the input values
+            const firstName1 = document.getElementById('firstName1').value;
+            const firstName2 = document.getElementById('firstName2').value;
+            const lastName1 = document.getElementById('lastName1').value;
+            const lastName2 = document.getElementById('lastName2').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const city = document.getElementById('city').value;
+            const company = document.getElementById('company').value;
+            const street = document.getElementById('street').value;
+            const jobPosition = document.getElementById('jobPosition').value;
+
+            // Submit the data (You can replace this with your submit function)
+            console.log("First Name 1:", firstName1);
+            console.log("First Name 2:", firstName2);
+            console.log("Last Name 1:", lastName1);
+            console.log("Last Name 2:", lastName2);
+            console.log("Phone Number:", phoneNumber);
+            console.log("City:", city);
+            console.log("Company:", company);
+            console.log("Street:", street);
+            console.log("Job Position:", jobPosition);
+
+            // Reset the input fields to their previous state
+            document.getElementById('firstName1').value = '';
+            document.getElementById('firstName2').value = '';
+            document.getElementById('lastName1').value = '';
+            document.getElementById('lastName2').value = '';
+            document.getElementById('phoneNumber').value = '';
+            document.getElementById('city').value = '';
+            document.getElementById('company').value = '';
+            document.getElementById('street').value = '';
+            document.getElementById('jobPosition').value = '';
+        });
+    </script>
+</head>
+<body>
+<nav>
+    <img src="lostlogo.png"/>
+    <section>
+        <a href="Home" style="color:#000; text-decoration: none">Home</a>
+        <a href="meetings" style="color:#000; text-decoration: none">Meetings</a>
+        <span style="text-decoration: underline solid black 2px;color:#000;">References</span>
+    </section>
+    <div>
+        <p className="span--text">Sales agent</p>
+    </div>
+</nav>
+<div style="padding: 1px 30px 5px 30px;display: flex; flex-direction: column;">
+    <div style="font-family: Lexend;display: flex; flex-direction: column;">
+        <h1 style="font-size: 22px; font-weight: 300; line-height: 40px; text-align: left; color: #000000; margin-bottom: 3px">References</h1>
+        <p style="font-size: 18px; font-weight: 400; line-height: 25px; text-align: left; color: #011C47; margin-top: 2px;margin-bottom: 2px;">Details</p>
+    </div>
+</div>
+<div  style="padding: 5px 30px 5px 30px;gap:170px; display: flex; flex-direction: row; align-items: center;
+border-radius: 30px;background-color: #F0F3F6;box-shadow: 10px 10px 10px 0px #FFFFFF40 inset;font-family: Lexend;
+font-size: 20px; font-weight: 300;line-height: 25px;">
+    <span>Reference</span>
+    <span>Referral</span>
+    <span>Phone number</span>
+    <span>Address</span>
+    <span>Profession</span>
+</div>
+
+<form  method="post" id="myForm" onsubmit="return validateInput();">
+    <table id="myTable">
+        <tr>
+            <td>
+                <input type="text" required placeholder="First Name" id="firstName1">
+            </td>
+            <td>
+                <input type="text" required placeholder="First Name" id="firstName2">
+            </td>
+            <td>
+                <input type="phone" required placeholder="+(355)** ******" id="userInput" name="userInput">
+            </td>
+            <td>
+                <input type="text" required placeholder="City" id="city">
+            </td>
+            <td>
+                <input type="text" required placeholder="Company" id="company">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" required placeholder="Last Name" id="lastName1">
+            </td>
+            <td>
+                <input type="text" required placeholder="Last Name" id="lastName2">
+            </td>
+            <td>
+
+            </td> <!-- Empty cell for the phone number -->
+            <td>
+                <input type="text" required placeholder="Street" id="street">
+            </td>
+            <td>
+                <input type="text" required placeholder="Job position" id="jobPosition">
+            </td>
+        </tr>
+    </table>
+    <div>
+        <section style="margin-top: 10px; display: flex; gap:5px;background: #F0F3F6; width:120px;border-radius: 15px;padding: 2px 5px 2px 5px;">
+            <img src="paperclip.png" style="width:30px; height: 30px;">
+            <span style="font-family: Lexend;font-size: 17px;font-weight: 300;line-height: 25px;">Comments</span>
+        </section>
+    </div>
+    <div style="margin-top: 6px; width: 1175px; height: 50px; border-radius: 15px; padding: 12px 12px 12px 12px; background: #F0F3F6B2;">
+        <input type="text" placeholder="Write here..." style="border: none;padding-right: 5px;outline: none; width:1170px; height:50px; border-radius: 15px;font-family: Lexend;
+font-size: 15px; font-weight: 400; line-height: 25px;">
+    </div>
+    <div style="width: 1190px; display: flex; justify-content: flex-start; margin-top: 13px;">
+        <form id="referenceForm">
+            <button type="submit" style="display: none;">Submit</button>
+            <button class="icon" id="AddReferenceButton" onclick="submitForm()" style="width: 140px; height: 35px; border: none; background: #F0F3F6; border-radius: 15px;">
+                <span class="button-text" style="font-family: Lexend; font-size: 17px; font-weight: 400; line-height: 21px; text-align: center; color: #6B6B6B;">⊕ Add reference</span>
+            </button>
+        </form>
+    </div>
+</form>
+</body>
+</html>

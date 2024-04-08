@@ -7,12 +7,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 exports.index = async (req, res) => {
-	if (req.isAuthenticated()) {
-
-		var loggedInUser = await User.findById(req.user._id);
-
-		res.render('index', {loggedInUser});
-	} else {
+	if (!req.isAuthenticated()) {
 		res.render('login');
 	}
 	
@@ -28,20 +23,18 @@ exports.login = (req, res) => {
 				.exec()
 				.catch(error => {
 					console.error('Error fetching user:', error);
-					// Handle the error (e.g., return an error response)
 				});
 			const loggedInUserRole = loggedInUser.roleId.title;
-			// const roleRedirectMap = {
-			// 	'admin': 'admin',
-			// 	'Phone Agent': 'phone-agent'
-			// 	// Add more roles
-			// };
-			// const redirectPath = roleRedirectMap[loggedInUserRole];
-			// if (redirectPath) {
-			// 	res.redirect(redirectPath);
-			// } else {
+			const roleRedirectMap = {
+				'admin': 'admin',
+				'sales agent': 'sales-agent'
+			};
+			const redirectPath = roleRedirectMap[loggedInUserRole];
+			if (redirectPath) {
+				res.redirect(redirectPath);
+			} else {
 				res.redirect("/");
-			//}
+			}
 		} catch (error) {
 			console.error(error);
 			res.redirect("login");
