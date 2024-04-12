@@ -1,5 +1,5 @@
 import {createBrowserRouter, Navigate} from 'react-router-dom';
-import DefaultLayout from './src/components/DefaultLayout';
+import DefaultLayout from './components/DefaultLayout';
 
 const router = createBrowserRouter([
   {
