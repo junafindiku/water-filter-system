@@ -96,7 +96,7 @@ exports.viewSalesAgentStatistics = async (req, res) => {
         const startDate = req.query.startDate;
         const endDate = req.query.endDate; 
         // Other filters...
-        const salesAgents = await User.find({ roleId: getRoleIdByTitle('Sales Agent')});
+        const salesAgents = await User.find({ roleId: roleIdByTitle('Sales Agent')});
 
         const agentStatistics = [];
         for (const agent of salesAgents) {

@@ -16,7 +16,11 @@ const User = new mongoose.Schema({
 	roleId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Role'
-	}
+	},
+	redList: {
+        type: Boolean,
+        default: false // Default value is false (not on the red list)
+    }
 });
 
 User.plugin(passportLocalMongoose);

@@ -1,10 +1,12 @@
-const mongoose = require('mongoose');
-const findOrCreate = require("mongoose-findorcreate");
+// const mongoose = require('mongoose');
+// const findOrCreate = require("mongoose-findorcreate");
 
-const ScheduleSlotSchema = new mongoose.Schema({
-	datetime: Date
-});
+// const ScheduleSlotSchema = new mongoose.Schema({
+// 	datetime: Date
+// });
 
-ScheduleSlotSchema.plugin(findOrCreate);
+// ScheduleSlotSchema.plugin(findOrCreate);
 
-module.exports = mongoose.model('ScheduleSlot', ScheduleSlotSchema);
+// module.exports = mongoose.model('ScheduleSlot', ScheduleSlotSchema);
+
+//maybe redundant
