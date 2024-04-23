@@ -40,3 +40,11 @@ p{
   background: linear-gradient(90deg, #01265B 0%, #0251C1 100%);
 
 }
+@media only screen and (max-width: 800px) {
+  .header{
+    flex-direction: column;
+  }
+  .p-container{
+    flex-direction: column;
+  }
+}

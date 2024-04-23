@@ -15,7 +15,7 @@ export default function ReservedCalls(){
         <p>Add Call</p>
         </div>
 
-        <div className="flex justify-between">
+        <div className="p-container flex justify-between">
         <ReservedCallsTable />
         
         <div className="phone-form">
