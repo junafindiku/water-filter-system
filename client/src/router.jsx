@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBrowserRouter, Navigate} from 'react-router-dom';
-import DefaultLayout from './components/DefaultLayout.jsx';
-import Schedule from './components/Schedule.js';
+import DefaultLayout from './components/DefaultLayout';
+import InstantMeetingScheduler from './components/InstantMeetingScheduler';
 
 const router = createBrowserRouter([
   {
@@ -15,13 +15,11 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/schedule',
-    element: <Schedule />,
-    children:[
-      {
+    path: '/instantmeeting',
+    element: <InstantMeetingScheduler />,
+    children: [{
 
-      }
-    ]
+    }]
   }
 ]);
 
