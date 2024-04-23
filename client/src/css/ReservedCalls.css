@@ -1,0 +1,42 @@
+.reserved-calls-container{
+  background: linear-gradient(122.69deg, #01061C 53.82%, rgba(0, 44, 101, 0.76) 77.73%, #01061C 96.54%);
+  /* width: 100vw;*/
+  /* height: 100vh;  */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.reserved-calls{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px;
+  background: linear-gradient(90.32deg, #cddef0 99.73%, rgba(240, 243, 246, 0.46) 19.03%);
+}
+
+p{
+  font-family: "Lexend", sans-serif;
+}
+
+.reserved-phone-calls{
+  display: flex;
+  background: #C1D9FC;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 20px;
+  flex:1;
+  flex-direction: column;
+}
+
+.phone-form{
+  background: #e5f2ffb2;
+  border-radius: 10px;
+  flex: 1;
+  padding: 15px;
+}
+
+.sbm-btn{
+  background: linear-gradient(90deg, #01265B 0%, #0251C1 100%);
+
+}

@@ -1,8 +1,8 @@
 // InstantMeetingScheduler.js, this is the form that will be used by the instant meeting interface
 import React, { useState } from 'react';
-import FormField from './FormField';
-import RadioGroup from './RadioGroup';
-import ButtonGroup from './ButtonGroup';
+import FormField from '../components/FormField';
+import RadioGroup from '../components/RadioGroup';
+import ButtonGroup from '../components/ButtonGroup';
 import '../css/InstantMeetingSchedule.css'
 
 const InstantMeetingScheduler = () => {
