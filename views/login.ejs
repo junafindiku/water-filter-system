@@ -38,11 +38,11 @@
     <p class="body--login">Log in</p>
     <p>
         <label for="userInput"></label>
-        <input type="text" class="field" name="username" placeholder="E-mail" required >
+        <input type="text" class="field" name="username" id="username" placeholder="E-mail" value="agent" required >
     </p>
     <p>
         <label for=""></label>
-        <input type="password" class="field" name="password" required placeholder="Password"> <br>
+        <input type="password" class="field" name="password" required value="agent" placeholder="Password"> <br>
         
     </p>
     <p>
@@ -53,5 +53,8 @@
         <a href="exercises.html" target="_blank"> Get help with signing in.</a>
     </p>
 </form>
+<script>
+document.getElementById('username').focus();
+</script>
 </body>
 </html>

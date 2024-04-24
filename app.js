@@ -10,7 +10,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 app.set('view engine', 'ejs');
 app.use(session({
     secret: 'Little secret',
@@ -20,12 +22,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const router = require('./routes/userRoutes')
+const router = require('./routes/all');
 
 app.use('/', router);
 
 app.listen(port, () => {
-    console.log(`Server started on http://localhost:${port}`);
+    console.log(`Wonderful project started on http://localhost:${port}`);
 });
 
 mongoose.connect("mongodb://localhost:27017/waterfilterDB");

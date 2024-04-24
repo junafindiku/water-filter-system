@@ -1,5 +1,5 @@
 const AgentMeeting = require('../models/AgentMeeting');
-const CallHistoryEntry = require('./CallHistoryEntry');
+const CallHistoryEntry = require('../models/CallHistoryEntry');
 
 exports.phoneAgentDashboard = (req, res) => {
 	if (req.isAuthenticated() && req.user.role === 'Phone Agent') {
