@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <link rel="stylesheet" href="../public/css/login.css" type="text/css">
+    <script>
+        function validateInput() {
+            var userInput = document.getElementById("userInput").value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var phoneRegex = /^\+355\d{8}$/; // Phone number starts with +355 and has 8 digits after that
+
+            // Check if the input matches the email regex or phone number regex
+            if (emailRegex.test(userInput) || phoneRegex.test(userInput)) {
+                alert("Input is valid!");
+            } else {
+                alert("Please enter a valid email address or phone number.");
+            }
+        }
+    </script>
+    <script>
+        function myfunction(){
+            var show = document.getElementById('show');
+            if (show.type== 'password'){
+                show.type='text';
+            }
+            else{
+                show.type='password';
+            }
+        }
+    </script>
+</head>
+<body>
+
+<img src="../public/css/firstphoto.png" class="body--icon"/>
+
+<form action="/login" method="post" onsubmit="return validateInput();" class="body--form">
+    <p class="body--login">Log in</p>
+    <p>
+        <label for="userInput"></label>
+        <input type="text" class="field" name="username" placeholder="E-mail" required >
+    </p>
+    <p>
+        <label for=""></label>
+        <input type="password" class="field" name="password" required placeholder="Password"> <br>
+        
+    </p>
+    <p>
+        <input class="body--button" type="submit" id="button" value="Log in">
+    </p>
+    <p class="body--ending ">Forgotten your log in details?
+        <br>
+        <a href="exercises.html" target="_blank"> Get help with signing in.</a>
+    </p>
+</form>
+</body>
+</html>
