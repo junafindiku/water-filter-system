@@ -1,0 +1,63 @@
+.login-container{
+  display: flex;
+  height: 100vh;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background: linear-gradient(230.3deg, #01265B 10.13%, #0251C1 88.77%);
+}
+.login{
+  display: flex;
+  flex: 1;
+  border-radius: 50px;
+  background-color: white;
+}
+
+.sub-login{
+  display: flex;
+  flex: 2;
+  background-image: url("../images/login-wave.jpg");
+  background-repeat: no-repeat;
+  background-size:auto;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-btn{
+  background: linear-gradient(90deg, #01265B 0%, #0251C1 100%);
+}
+
+.login-form{
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex:1;
+  padding: 30px;
+}
+
+.login-elements{
+  flex:1;
+}
+
+.login-welcome{
+  background: linear-gradient(342.25deg, rgba(255, 255, 255, 0.24) 3.42%, rgba(255, 255, 255, 0.3) 91.53%);
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.horizontal-line{
+  border-bottom: white;
+  border-width: 2px;
+}
+input[type="text"],
+input[type="password"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+}

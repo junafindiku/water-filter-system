@@ -4,6 +4,7 @@ import DefaultLayout from './screen/DefaultLayout';
 import InstantMeetingScheduler from './screen/InstantMeetingScheduler';
 import ReservedCalls from './screen/ReservedCalls';
 import Scheduler from './screen/Scheduler';
+import Login from './screen/Login';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,15 @@ const router = createBrowserRouter([
   {
     path: '/scheduler',
     element: <Scheduler />,
+    children:[
+      {
+        
+      }
+    ]
+  },
+  {
+    path: '/login',
+    element: <Login />,
     children:[
       {
         
