@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 const findOrCreate = require("mongoose-findorcreate");
 
 const AgentMeetingSchema = new mongoose.Schema({
-	userId: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
-	},
+	agentId: Number,
+	clientId: Number,
 	meetingType: {
 		type: String,
 		enum: ['Instant', 'Scheduled']

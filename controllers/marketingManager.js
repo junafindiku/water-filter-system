@@ -103,7 +103,10 @@ exports.viewSalesAgentStatistics = async (req, res) => {
             const successfulMeetingsCount = await AgentMeeting.countDocuments({
                 userId: agent._id,
                 successful: true,
-                datetime: { $gte: startDate, $lte: endDate }
+                datetime: { 
+                    $gte: startDate, 
+                    $lte: endDate 
+                }
             });
 
             // Other statistics...

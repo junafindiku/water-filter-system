@@ -43,3 +43,4 @@ objects = {
 		agent_id: Number,
 		approved: Boolean
 	}
+}

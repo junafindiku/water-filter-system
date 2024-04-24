@@ -1,6 +1,9 @@
 const User = require('../models/User');
 
-makeSureIs = function(role) {
+/**
+ * @param {String} roleTitle
+ */
+makeSureIs = function(roleTitle) {
     return async (req, res, next) => {
         if (req.isAuthenticated()) {
             await User.findById(req.user._id)
@@ -8,12 +11,14 @@ makeSureIs = function(role) {
                 .exec()
                 .then(u => {
                     const r = u.roleId.title;
-                    if (r == role) {
+                    if (r == roleTitle) {
                         return next();
                     } else {
                         res.render('unauthorized');
                     }
                 });
+        } else {
+            res.redirect("/");
         }
     }
 }
